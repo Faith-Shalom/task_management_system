@@ -1,5 +1,8 @@
+--- create database called USER
+CREATE DATABASE MANAGEMENTSYSTEM;
+
 --- USER
-CERATE TABLE users (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL,
