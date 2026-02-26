@@ -1,75 +1,74 @@
 <?php
+// Start session to store user data after login
 session_start();
+
+// Check if form was submitted
 if (isset($_POST['user_name']) && isset($_POST['password'])) {
+
+    // Include database connection
     include "../app/DB_connection.php";
 
+    // Function to clean user input (basic security)
     function validate_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+        return htmlspecialchars(trim($data));
     }
 
+    // Get and sanitize input values
     $user_name = validate_input($_POST['user_name']);
-    $password = validate_input($_POST['password']);
+    $password  = validate_input($_POST['password']);
 
+    // Check if username is empty
     if (empty($user_name)) {
-        $em ="User name is required";
-        header("Location: ../login.php?error=$em");
-        exit();
-    }else if (empty($password)) {
-        $em ="Password is required";
-        header("Location: ../login.php?error=$em");
-        exit();
-    }else {
-          $sql = "SELECT * FROM users WHERE username = ?";
-          $stmt = $conn->prepare($sql);
-          $stmt->execute([$user_name]);
-
-        if ($stmt->rowCount() == 1){
-            $user = $stmt->fetch();
-            $usernameDb = $user['username'];
-            $passwordDb = $user['password'];
-            $role = $user['role'];
-            $id = $user['id'];
-
-            
-            if ($user_name === $usernameDb){
-                if (password_verify($password, $passwordDb)){
-                    if ($role == "admin"){
-                         $_SESSION ['role'] =$role;
-                         $_SESSION ['id'] =$id;
-                         $_SESSION ['username'] =$usernameDb;
-                          header("Location: ../index.php");
-
-                          }else if ($role == 'employee'){
-                            $_SESSION ['role'] =$role;
-                            $_SESSION ['id'] =$id;
-                            $_SESSION ['username'] =$usernameDb;
-                            header("Location: ../index.php");
-
-                          }else {
-                            $em ="unknown error occured";
-                             header("Location: ../login.php?error=$em");
-                              exit();
-                          }
-
-                    }else {
-                        $em = "Incorrect username or password";
-                        header("Location: ../login.phph?error=$em");
-                        exit();
-                    }
-                
-            }else{
-                $em = "Incorrect username or password";
-                header("Location: ../login.php?error=$em");
-                exit();
-            }
-        }
+        header("Location: ../login.php?error=User name is required");
+        exit(); // stop script
     }
-}else {
-    $em ="unknown error occured";
-    header("Location: ../login.php?error=$em");
+
+    // Check if password is empty
+    if (empty($password)) {
+        header("Location: ../login.php?error=Password is required");
+        exit();
+    }
+
+    // Prepare SQL query to prevent SQL injection
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+
+    // Execute query with user input
+    $stmt->execute([$user_name]);
+
+    // Check if exactly one user was found
+    if ($stmt->rowCount() === 1) {
+
+        // Fetch user data from database
+        $user = $stmt->fetch();
+
+        // Verify entered password with hashed password in DB
+        if (password_verify($password, $user['password'])) {
+
+            // Store user info in session
+            $_SESSION['role']     = $user['role'];
+            $_SESSION['id']       = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            // Redirect to dashboard/home page
+            header("Location: ../index.php");
+            exit();
+
+        } else {
+            // Password is incorrect
+            header("Location: ../login.php?error=Incorrect username or password");
+            exit();
+        }
+
+    } else {
+        // No user found with that username
+        header("Location: ../login.php?error=User not found");
+        exit();
+    }
+
+} else {
+    // If page accessed without form submission
+    header("Location: ../login.php?error=Unknown error occurred");
     exit();
 }
 ?>
