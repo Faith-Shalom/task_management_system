@@ -259,3 +259,14 @@
 .input-1:focus {
 	border-color: #555;
 }
+
+.password-container {
+    position: relative;
+}
+
+.password-container span {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    cursor: pointer;
+}
