@@ -1,215 +1,261 @@
+/* ================= GLOBAL RESET ================= */
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: arial, sans-serif;
+	font-family: Arial, sans-serif;
 }
+
+/* ================= HEADER ================= */
 .header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-between; /* space between title & icons */
 	align-items: center;
 	padding: 15px 30px;
 	background: #454655;
 	color: #fff;
 }
+
+/* App name */
 .u-name {
 	font-size: 20px;
 	padding-left: 17px;
 }
+
+/* Highlight "Pro" */
 .u-name b {
 	color: #127b8e;
 }
+
+/* Header icons */
 .header i {
 	font-size: 30px;
 	cursor: pointer;
 	color: #fff;
 }
+
+/* Hover effect */
 .header i:hover {
 	color: #127b8e;
 }
+
+/* ================= USER PROFILE ================= */
 .user-p {
 	text-align: center;
 	padding-left: 10px;
 	padding-top: 25px;
 }
+
 .user-p img {
 	width: 100px;
-	border-radius: 50%;
+	border-radius: 50%; /* make image circular */
 }
+
 .user-p h4 {
 	color: #ccc;
 	padding: 5px 0;
-
 }
+
+/* ================= SIDEBAR ================= */
 .side-bar {
 	width: 250px;
 	background: #262931;
 	min-height: 100vh;
-	transition: 500ms width;
+	transition: width 0.5s;
 }
+
+/* Layout: sidebar + content */
 .body {
 	display: flex;
 }
+
+/* Sidebar list */
 .side-bar ul {
 	margin-top: 20px;
 	list-style: none;
 }
+
+/* Sidebar items */
 .side-bar ul li {
 	font-size: 16px;
-	padding: 15px 0px;
-	padding-left: 20px;
-	transition: 500ms background;
+	padding: 15px 20px;
+	transition: background 0.5s;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+/* Hover effect */
 .side-bar ul li:hover {
 	background: #127b8e;
 }
+
+/* Sidebar links */
 .side-bar ul li a {
 	text-decoration: none;
 	color: #eee;
-	cursor: pointer;
 	letter-spacing: 1px;
+	display: block;
 }
+
+/* Active menu item */
 .side-bar .active a {
 	color: #127b8e !important;
 }
+
 .side-bar .active a i {
 	color: #127b8e !important;
 }
-.side-bar ul .active {
-	color: transparent;
-}
+
+/* Sidebar icons */
 .side-bar ul li a i {
-	display: inline-block;
 	padding-right: 10px;
-	font-size: 23px;
+	font-size: 20px;
 }
+
+/* Menu toggle button */
 #navbtn {
-	display: inline-block;
 	margin-left: 70px;
 	font-size: 20px;
-	transition: 500ms color;
+	cursor: pointer;
 }
+
+/* ================= SIDEBAR COLLAPSE ================= */
 #checkbox {
 	display: none;
 }
+
+/* Collapse sidebar */
 #checkbox:checked ~ .body .side-bar {
 	width: 60px;
 }
-#checkbox:checked ~ .body .side-bar .user-p{
-	visibility: hidden;
-}
-#checkbox:checked ~ .body .side-bar a span{
+
+/* Hide user profile when collapsed */
+#checkbox:checked ~ .body .side-bar .user-p {
 	display: none;
 }
-.login-body{
+
+/* Hide text labels when collapsed */
+#checkbox:checked ~ .body .side-bar a span {
+	display: none;
+}
+
+/* ================= LOGIN PAGE ================= */
+.login-body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
 }
-.login-body form{
-	max-width: 520px;
-	width: 90%;
-}
-.login-body{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-}
-.login-body form{
+
+/* Login form */
+.login-body form {
 	max-width: 320px;
 	width: 90%;
-	box-shadow: #262931,rgb(56, 55, 55);
+	padding: 20px;
+	background: #fff;
+	border-radius: 8px;
+
+	/* FIXED shadow */
+	box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-.section-1{
+
+/* ================= MAIN SECTION ================= */
+.section-1 {
 	padding: 30px;
 }
-.section-1 .title{
+
+/* Title */
+.section-1 .title {
 	margin-bottom: 10px;
 }
-.section-1 .title a{
+
+/* Add button */
+.section-1 .title a {
 	text-decoration: none;
-	padding-left: 10px;
 	display: inline-block;
-	border: none;
 	background: #00CF22;
 	padding: 10px 15px;
 	color: #fff;
 	font-size: 16px;
 	border-radius: 5px;
 	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0;
+	transition: 0.3s;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-.section-1 .title a:hover{
-	opacity: 6;
+
+/* Hover fix */
+.section-1 .title a:hover {
+	opacity: 0.8; /* FIXED (was 6 ❌) */
 }
-.main-table, .main-table tr, .main-table th, .main-table td {
+
+/* ================= TABLE ================= */
+.main-table,
+.main-table tr,
+.main-table th,
+.main-table td {
 	border: 1px solid #aaa;
 	border-collapse: collapse;
 	padding: 8px;
 }
+
 .main-table {
 	width: 90%;
 }
-.delete-btn{
+
+/* ================= BUTTONS ================= */
+.delete-btn,
+.edit-btn {
 	text-decoration: none;
-	padding-left: 10px;
 	display: inline-block;
-	border: none;
+	padding: 10px 15px;
+	color: #fff;
+	font-size: 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Delete button */
+.delete-btn {
 	background: #E00051;
-	padding: 10px 15px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0;
 }
-.delete-btn:hover{
-	opacity: 6;
-}
-.edit-btn{
-	text-decoration: none;
-	padding-left: 10px;
-	display: inline-block;
-	border: none;
+
+/* Edit button */
+.edit-btn {
 	background: #4261ee;
-	padding: 10px 15px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	outline: none;
-	transition: background 1s;
-	box-shadow: 0 8px 16px 0;
 }
-.edit-btn:hover{
-	opacity: 6;
+
+/* Hover effect */
+.delete-btn:hover,
+.edit-btn:hover {
+	opacity: 0.8; /* FIXED */
 }
-.form-1{
+
+/* ================= FORM ================= */
+.form-1 {
 	width: 90%;
 	max-width: 500px;
 }
-.input-holder label{
+
+/* Labels */
+.input-holder label {
 	display: block;
-	padding: 10px;
+	padding: 10px 0;
 }
+
+/* Inputs */
 .input-1 {
 	border: 2px solid #ccc;
 	width: 100%;
 	padding: 10px;
 	font-size: 15px;
-	outline: none;
 	border-radius: 5px;
-	display: block;
+	outline: none;
 }
-.input-1:focus{
+
+/* Focus effect */
+.input-1:focus {
 	border-color: #555;
 }
